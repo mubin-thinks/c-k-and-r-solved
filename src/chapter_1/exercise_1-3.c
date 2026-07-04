@@ -1,8 +1,13 @@
 #include <stdio.h>
 
 int main() {
-        int lower = 0, upper = 300, step = 20;
-        float fahr = lower, cel;
+        int lower, upper, step;
+        float fahr, cel;
+
+        lower = 0;
+        upper = 300;
+        step = 20;
+        fahr = lower;
 
         printf("fahr.   celcius\n");
         while (fahr <= upper) {
