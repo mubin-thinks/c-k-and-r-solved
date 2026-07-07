@@ -1,3 +1,7 @@
+
+> [!WARNING]
+> This project is currently work-in-progress. (WIP)
+
 <div align="center">
     <h2>
         <i>Solutions to Exercises of<br>The C Programming Language 2nd Edition by K&R</i>
