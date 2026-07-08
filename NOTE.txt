@@ -13,3 +13,20 @@ Today's compilers have removed/discourage the use of
 In the solutions, the return type of all functions are
 declared & main always returns 0(if execution is
 successful).
+
+
+
+2. Testing various input to `getchar()`
+---------------------------------------
+For exercises using getchar(), providing EOF as input to the
+terminal stdin input stream is difficult. instead there's a
+much better way using files.
+
+Creating a file(like text files) and using the `cat` program
+will ouput the contents of the file. This causes the EOF
+symbol to also be printed.
+
+In UNIX we can use the |(pipe) symbol to forward the output
+of cat as input to our program like so(at least in Linux):
+
+        cat input.txt | ./a.out
