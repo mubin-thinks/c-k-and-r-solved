@@ -1,0 +1,15 @@
+1. Varation of main function
+----------------------------
+In the K&R book, the version of C used is known as "K&R C".
+K&R C uses implicit int as return type for functions.
+Therefore, the main function looks like `main()` instead
+of `int main()`.
+
+In later versions of C, `int main()` is the norm. And you
+should also explicitly declare return type of functions.
+Today's compilers have removed/discourage the use of
+`main()`.
+
+In the solutions, the return type of all functions are
+declared & main always returns 0(if execution is
+successful).

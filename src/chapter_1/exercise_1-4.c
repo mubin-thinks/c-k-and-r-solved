@@ -15,4 +15,5 @@ int main() {
                 printf("%7.0f   %7.1f\n", cel, fahr);
                 cel = cel + step;
         }
+        return 0;
 }
