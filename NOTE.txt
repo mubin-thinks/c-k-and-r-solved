@@ -1,3 +1,10 @@
+Table of Contents
+-----------------
+1. Varation of main function
+2. Testing various input to `getchar()`
+
+
+
 1. Varation of main function
 ----------------------------
 In the K&R book, the version of C used is known as "K&R C".
