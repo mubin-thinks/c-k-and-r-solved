@@ -31,6 +31,6 @@ int my_getline(char s[], int max_length) {
 void remove_trailing_invisible_symbols(char s[], int length) {
         int i = length - 1;
         if (s[i] == '\n') --i;
-        for (; s[i] == ' ' || s[i] == '\t'; i--);
+        for (; s[i] == ' ' || s[i] == '\t'; --i);
         s[i + 1] = '\0';
 }

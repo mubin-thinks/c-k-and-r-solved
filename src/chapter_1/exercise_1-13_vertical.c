@@ -26,7 +26,7 @@ int main() {
         for (int i = 0; i < word_lengths_idx; ++i)
                 if (word_lengths[i] > max_length) max_length = word_lengths[i];
 
-        for (int i = max_length; i >= 1; i--) {
+        for (int i = max_length; i >= 1; --i) {
                 for (int j = 0; j < word_lengths_idx; ++j) {
                         if (word_lengths[j] >= i) putchar('+');
                         else putchar(' ');
