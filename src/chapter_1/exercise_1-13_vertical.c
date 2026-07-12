@@ -11,23 +11,23 @@ int main() {
                 if (c == ' ' || c == '\t' || c == '\n') {
                         if (state == IN) {
                                 word_lengths[word_lengths_idx] = count;
-                                word_lengths_idx++;
+                                ++word_lengths_idx;
                                 count = 0;
                                 state = OUT;
                         }
                 }
                 else {
-                        count++;
+                        ++count;
                         state = IN;
                 }
         }
 
         int max_length = 0;
-        for (int i = 0; i < word_lengths_idx; i++)
+        for (int i = 0; i < word_lengths_idx; ++i)
                 if (word_lengths[i] > max_length) max_length = word_lengths[i];
 
         for (int i = max_length; i >= 1; i--) {
-                for (int j = 0; j < word_lengths_idx; j++) {
+                for (int j = 0; j < word_lengths_idx; ++j) {
                         if (word_lengths[j] >= i) putchar('+');
                         else putchar(' ');
                 }

@@ -38,7 +38,7 @@ void reverse(char s[]) {
         int n = length(s);
         if (s[n - 1] == '\n') --n;
         char tmp;
-        for (int i = 0; i < n / 2; i++) {
+        for (int i = 0; i < n / 2; ++i) {
                 tmp = s[i];
                 s[i] = s[n - i - 1];
                 s[n - i - 1] = tmp;

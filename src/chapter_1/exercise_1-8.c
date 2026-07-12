@@ -5,9 +5,9 @@ int main() {
         blank_count = tab_count = newline_count = 0;
 
         while ((c = getchar()) != EOF) {
-                if (c == ' ') blank_count++;
-                else if (c == '\t') tab_count++;
-                else if (c == '\n') newline_count++;
+                if (c == ' ') ++blank_count;
+                else if (c == '\t') ++tab_count;
+                else if (c == '\n') ++newline_count;
         }
 
         printf(

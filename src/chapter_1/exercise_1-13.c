@@ -8,13 +8,13 @@ int main() {
         while ((c = getchar()) != EOF) {
                 if (c == ' ' || c == '\t' || c == '\n') {
                         if (state == IN) {
-                                for (int i = 0; i < count; i++) putchar('+');
+                                for (int i = 0; i < count; ++i) putchar('+');
                                 putchar('\n');
                                 count = 0;
                                 state = OUT;
                         }
                 } else {
-                        count++;
+                        ++count;
                         state = IN;
                 }
         }

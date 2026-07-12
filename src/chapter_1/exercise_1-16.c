@@ -43,5 +43,5 @@ int my_getline(char s[], int max_length) {
 }
 
 void copy(char to[], char from[]) {
-        for (int i = 0; (to[i] = from[i]) != '\0'; i++);
+        for (int i = 0; (to[i] = from[i]) != '\0'; ++i);
 }
