@@ -3,15 +3,14 @@
 #define MAX_LINE_LENGTH 1000
 
 int my_getline(char s[], int max_length);
+void remove_trailing_invisible_symbols(char s[], int length);
 
 int main() {
         char line[MAX_LINE_LENGTH];
         int line_length;
         while ((line_length = my_getline(line, MAX_LINE_LENGTH)) > 0) {
-                int j = line_length - 1;
-                for (; j >= 0; --j)
-                        if (line[j] != '\t' && line[j] != ' ' && line[j] != '\n') break;
-                for (int i = 0; i <= j; ++i) putchar(line[i]);
+                remove_trailing_invisible_symbols(line, line_length);
+                printf("%s", line);
                 if (line_length > 1) putchar('\n');
         }
         return 0;
@@ -27,4 +26,11 @@ int my_getline(char s[], int max_length) {
         }
         s[length] = '\0';
         return length;
+}
+
+void remove_trailing_invisible_symbols(char s[], int length) {
+        int i = length - 1;
+        if (s[i] == '\n') --i;
+        for (; s[i] == ' ' || s[i] == '\t'; i--);
+        s[i + 1] = '\0';
 }
