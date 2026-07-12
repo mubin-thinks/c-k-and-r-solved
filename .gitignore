@@ -1,5 +1,6 @@
 # Personal files
 input*.txt
+output*.txt
 
 # Prerequisites
 *.d

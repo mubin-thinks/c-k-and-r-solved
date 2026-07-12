@@ -37,3 +37,8 @@ In UNIX we can use the |(pipe) symbol to forward the output
 of cat as input to our program like so(at least in Linux):
 
         cat input.txt | ./a.out
+
+Using this knowledge, we can pass source files of exercises
+as input to our program. For example:
+
+        cat exercise_1-16.c | ./a.out
