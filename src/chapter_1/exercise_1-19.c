@@ -4,7 +4,7 @@
 
 int my_getline(char s[], int max_length);
 int length(char s[]);
-int reverse(char s[]);
+void reverse(char s[]);
 
 int main() {
         char line[MAX_LINE_LENGTH];
@@ -34,7 +34,7 @@ int length(char s[]) {
         return result;
 }
 
-int reverse(char s[]) {
+void reverse(char s[]) {
         int n = length(s);
         if (s[n - 1] == '\n') --n;
         char tmp;
