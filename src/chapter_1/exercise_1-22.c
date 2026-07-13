@@ -18,7 +18,7 @@ int main() {
                                 current_column = j;
                                 space_idx = -1;
                         } else {
-                                for (int i = 0; i < current_column - 1; i++)
+                                for (int i = 0; i < current_column - 1; ++i)
                                         putchar(line[i]);
                                 printf("-\n");
                                 line[0] = line[current_column - 1];
