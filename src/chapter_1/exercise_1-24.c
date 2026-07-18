@@ -6,7 +6,6 @@
 #define SPACES_FOR_A_TAB "        "
 
 int main() {
-        // () {} [] <> \x "" ''
         int rounded_brackets_equality = 0, curly_brackets_equality = 0,
                 square_brackets_equality = 0, angle_brackets_equality = 0,
                 excess_closing_rounded_brackets = 0, excess_closing_curly_brackets = 0,
