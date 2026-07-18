@@ -11,11 +11,25 @@ int main() {
                 square_brackets_equality = 0, angle_brackets_equality = 0,
                 excess_closing_rounded_brackets = 0, excess_closing_curly_brackets = 0,
                 excess_closing_square_brackets = 0, excess_closing_angle_brackets = 0,
-                in_double_quotes = FALSE, in_single_quotes = FALSE;
+                in_double_quotes = FALSE, in_single_quotes = FALSE, in_comment = FALSE;
         char invalid_escape_sequences[MAX_ESCAPE_SEQUENCE_ERROR_STORAGE];
         int invalid_escape_sequences_length = 0;
 
-        for (int c; (c = getchar()) != EOF; ) {
+        for (int c, next_c; (c = getchar()) != EOF; ) {
+                if (c == '/') {
+                        next_c = getchar();
+                        if (next_c == '/') while ((c = getchar()) != EOF && c != '\n');
+                        else if (next_c == '*') {
+                                while (next_c != EOF && (c != '*' || next_c != '/')) {
+                                        c = next_c;
+                                        next_c = getchar();
+                                }
+                                if (next_c == EOF) in_comment = TRUE;
+                        } else {
+                                putchar(c);
+                                putchar(next_c);
+                        }
+                }
                 if (c == '\\') {
                         c = getchar();
                         if (
@@ -72,7 +86,7 @@ int main() {
                 square_brackets_equality > 0 || excess_closing_square_brackets > 0 ||
                 angle_brackets_equality > 0 || excess_closing_angle_brackets > 0 ||
                 in_double_quotes == TRUE || in_single_quotes == TRUE ||
-                invalid_escape_sequences_length > 0
+                in_comment == TRUE || invalid_escape_sequences_length > 0
         ) printf("errors:\n");
 
         if (rounded_brackets_equality > 0) {
@@ -135,6 +149,8 @@ int main() {
                 printf("%s- one extra double quote\n", SPACES_FOR_A_TAB);
         if (in_single_quotes == TRUE)
                 printf("%s- one extra single quote\n", SPACES_FOR_A_TAB);
+        if (in_comment == TRUE)
+                printf("%s- multiline comment does not end\n", SPACES_FOR_A_TAB);
         if (invalid_escape_sequences_length > 0)
                 printf("%s- invalid space squences:", SPACES_FOR_A_TAB);
         for (int i = 0; i < invalid_escape_sequences_length; i++)
