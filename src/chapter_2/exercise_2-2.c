@@ -3,11 +3,11 @@
 //
 // One thing to consider that in multiplication does not
 // stop after knowing the truthness of the condition.
-// meaning, if the first case is false, All the other
+// Meaning, if the first case is false, all the other
 // cases will be tested.
 //
 // This isn't problematic in this case as worst case assumes
-// we are calling getchar() after we found EOF, Which
+// we are calling getchar() after we found EOF, which
 // results in getchar() keep return EOF afterwards. The
 // program works as intended.
 //
