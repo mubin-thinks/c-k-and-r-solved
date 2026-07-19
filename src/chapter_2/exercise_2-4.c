@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-int is_char_in_string(char s[], int c);
-int squeeze(char s1[], char s2[]);
+int is_char_in_string(const char s[], char c);
+void squeeze(char s1[], const char s2[]);
 
 int main() {
         char s[1000];
@@ -28,13 +28,13 @@ int main() {
         return 0;
 }
 
-int is_char_in_string(char s[], int c) {
+int is_char_in_string(const char s[], char c) {
         for (int i = 0; s[i] != '\0'; ++i)
                 if (s[i] == c) return 1;
         return 0;
 }
 
-int squeeze(char s1[], char s2[]) {
+void squeeze(char s1[], const char s2[]) {
         int i = 0, j = 0;
         for (; s1[i] != '\0'; ++i)
                 if (!is_char_in_string(s2, s1[i])) s1[j++] = s1[i];
