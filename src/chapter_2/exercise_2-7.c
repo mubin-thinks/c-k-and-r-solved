@@ -19,7 +19,7 @@ int main() {
 
 unsigned int invert(unsigned int x, int p, int n) {
         if (!n) return x;
-        unsigned int y = ((2 << (n - 1)) - 1) << (p - n + 1);
+        unsigned int y = ((1 << n) - 1) << (p - n + 1);
         return (x & ~y) | (~x & y);
 }
 

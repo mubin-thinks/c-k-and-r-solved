@@ -17,11 +17,11 @@ int main() {
         return 0;
 }
 
-// Unsigned int in modern computers usually contain 32bits.
-// Therefore, right rotation will rotate the rightmost n
-// bits to very left of 32bits.
+// Unsigned int in most modern computers usually contain
+// 32bits. Therefore, right rotation will rotate the
+// rightmost n bits to very left of 32bits.
 unsigned int rightrot(unsigned int x, int n) {
-        unsigned int y = x & ((2 << n) - 1);
+        unsigned int y = x & ((1 << n) - 1);
         return (x >> n) | (y << (32 - n));
 }
 
