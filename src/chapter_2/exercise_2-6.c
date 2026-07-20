@@ -18,8 +18,9 @@ int main() {
 }
 
 unsigned int setbits(unsigned int x, int p, int n, unsigned int y) {
-        x &= ~(((2 << (n - 1)) - 1) << (p - n + 1));
-        x |= (y & ((2 << (n - 1)) - 1)) << (p - n + 1);
+        unsigned int z = (2 << (n - 1)) - 1, d = p - n + 1;
+        x &= ~(z << d);
+        x |= (y & z) << d;
         return x;
 }
 
