@@ -28,8 +28,8 @@
 //        +11111111 (-1 or ~0)
 //        ---------
 //        101001001
-//        ^
-//        |--- overflow bit (we do not consider)
+//        🠙
+//        └─── overflow bit (we do not consider)
 //
 // We can see the rightmost 1+1 will be 0 and all 1+1 on the
 // left will be 1 and 0+1 will be 0 and all 0s right of
@@ -52,8 +52,8 @@
 //        &01001010 (x)
 //        ---------
 //         01001000
-//               ^
-//               |--- 0 in place of rightmost 1
+//               🠙
+//               └─── 0 in place of rightmost 1
 
 #include <stdio.h>
 
