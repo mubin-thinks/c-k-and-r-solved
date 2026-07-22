@@ -42,7 +42,7 @@ void itob(int n, char s[], int b) {
         int r, i = 0, is_positive = (n > 0) ? TRUE : FALSE;
         // TODO: fix for n = INT_MIN
         if (n < 0) n = -n;
-        for (;n; n /= b) {
+        for (; n; n /= b) {
                 r = n % b;
                 s[i++] = base[r];
         }
