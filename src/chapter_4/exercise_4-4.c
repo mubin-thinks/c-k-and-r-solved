@@ -10,6 +10,9 @@ void ungetch(char c);
 char getop(char s[]);
 void push(double x);
 double pop(void);
+double view_top(void);
+void swap_top(void);
+void clear(void);
 
 int main() {
         char c, s[OP_MAX_LENGTH];
@@ -37,6 +40,18 @@ int main() {
                         if ((last_operand = pop()) != 0.0)
                                 push((int)pop() % (int)last_operand);
                         else printf("error: divisor is 0.\n");
+                        break;
+                case 't':
+                        printf("        %.8g\n", view_top());
+                        break;
+                case 'd':
+                        push(view_top());
+                        break;
+                case 's':
+                        swap_top();
+                        break;
+                case 'c':
+                        clear();
                         break;
                 case '\n':
                         printf("        %.8g\n", pop());
@@ -105,4 +120,24 @@ double pop(void) {
                 printf("error: empty stack.\n");
                 return 0.0;
         }
+}
+
+double view_top(void) {
+        if (stack_length > 0) return stack[stack_length - 1];
+        else {
+                printf("error: empty stack.\n");
+                return 0.0;
+        }
+}
+
+void swap_top(void) {
+        if (stack_length >= 2) {
+                double tmp = stack[stack_length - 1];
+                stack[stack_length - 1] = stack[stack_length - 2];
+                stack[stack_length - 2] = tmp;
+        }
+}
+
+void clear(void) {
+        stack_length = 0;
 }
