@@ -5,6 +5,8 @@
 #define MAX_OP_LENGTH 100
 #define NUMBER '0'
 
+char getch(void);
+void ungetch(char c);
 char getop(char s[]);
 void push(double x);
 double pop(void);
@@ -47,19 +49,41 @@ int main() {
         return 0;
 }
 
+#define UNGETCH_BUFFER_LENGTH 100
+
+char ungetch_buffer[UNGETCH_BUFFER_LENGTH];
+int ungetch_buffer_idx = 0;
+
+char getch(void) {
+        return (ungetch_buffer_idx > 0) ?
+                ungetch_buffer[--ungetch_buffer_idx] :
+                getchar();
+}
+
+void ungetch(char c) {
+        if (ungetch_buffer_idx < UNGETCH_BUFFER_LENGTH)
+                ungetch_buffer[ungetch_buffer_idx++] = c;
+        else printf("error: ungetch buffer limit reached.\n");
+}
+
 char getop(char s[]) {
-        char c;
-        for (; (c = getc(stdin)) == ' ' || c == '\t'; );
-        if (!isdigit(c) && c != '.') return c;
+        char c, next_c;
+        for (; (c = getch()) == ' ' || c == '\t'; );
+        if (!isdigit(c) && c != '.' && c != '-') return c;
+        if (c == '-') {
+                next_c = getch();
+                if (next_c != EOF) ungetch(next_c);
+                if (!isdigit(next_c)) return c;
+        }
         int i = 0;
         s[i++] = c;
-        for (; isdigit(c = getc(stdin)); ) s[i++] = c;
+        for (; isdigit(c = getch()); ) s[i++] = c;
         if (c == '.') {
                 s[i++] = c;
-                for (; isdigit(c = getc(stdin)); ) s[i++] = c;
+                for (; isdigit(c = getch()); ) s[i++] = c;
         }
         s[i] = '\0';
-        if (c != EOF) ungetc(c, stdin);
+        if (c != EOF) ungetch(c);
         return NUMBER;
 }
 
