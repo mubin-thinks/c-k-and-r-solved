@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#define MAX_OP_LENGTH 100
+#define OP_MAX_LENGTH 100
 #define NUMBER '0'
 
 char getch(void);
@@ -12,7 +12,7 @@ void push(double x);
 double pop(void);
 
 int main() {
-        char c, s[MAX_OP_LENGTH];
+        char c, s[OP_MAX_LENGTH];
         double last_operand;
         for (; (c = getop(s)) != EOF; ) {
                 switch (c) {
@@ -49,20 +49,20 @@ int main() {
         return 0;
 }
 
-#define UNGETCH_BUFFER_LENGTH 100
+#define UNGETCH_BUFFER_MAX_LENGTH 100
 
-char ungetch_buffer[UNGETCH_BUFFER_LENGTH];
-int ungetch_buffer_idx = 0;
+char ungetch_buffer[UNGETCH_BUFFER_MAX_LENGTH];
+int ungetch_buffer_length = 0;
 
 char getch(void) {
-        return (ungetch_buffer_idx > 0) ?
-                ungetch_buffer[--ungetch_buffer_idx] :
+        return (ungetch_buffer_length > 0) ?
+                ungetch_buffer[--ungetch_buffer_length] :
                 getchar();
 }
 
 void ungetch(char c) {
-        if (ungetch_buffer_idx < UNGETCH_BUFFER_LENGTH)
-                ungetch_buffer[ungetch_buffer_idx++] = c;
+        if (ungetch_buffer_length < UNGETCH_BUFFER_MAX_LENGTH)
+                ungetch_buffer[ungetch_buffer_length++] = c;
         else printf("error: ungetch buffer limit reached.\n");
 }
 
@@ -87,18 +87,18 @@ char getop(char s[]) {
         return NUMBER;
 }
 
-#define STACK_SIZE 100
+#define STACK_MAX_LENGTH 100
 
-double stack[STACK_SIZE];
-int stack_idx = 0;
+double stack[STACK_MAX_LENGTH];
+int stack_length = 0;
 
 void push(double x) {
-        if (stack_idx < STACK_SIZE) stack[stack_idx++] = x;
+        if (stack_length < STACK_MAX_LENGTH) stack[stack_length++] = x;
         else printf("error: stack limit reached.\n");
 }
 
 double pop(void) {
-        if (stack_idx >= 0) return stack[--stack_idx];
+        if (stack_length >= 0) return stack[--stack_length];
         else {
                 printf("error: empty stack.\n");
                 return 0.0;
