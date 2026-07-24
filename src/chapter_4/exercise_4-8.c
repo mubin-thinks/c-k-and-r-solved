@@ -19,6 +19,7 @@ int main() {
         ungetch('@');
         ungetch('#');
         printf("%c\n", getch());
+        return 0;
 }
 
 int getch(void) {

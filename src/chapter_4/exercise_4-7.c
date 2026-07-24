@@ -19,6 +19,7 @@ int main() {
         ungets("other test");
         ungetch_buffer[ungetch_buffer_length] = '\0';
         printf("%s\n", ungetch_buffer);
+        return 0;
 }
 
 int getch(void) {
