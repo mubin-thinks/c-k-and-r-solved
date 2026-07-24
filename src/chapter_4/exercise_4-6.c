@@ -22,7 +22,7 @@ void stack_clear(void);
 
 int main() {
         char c, s[OP_MAX_LENGTH];
-        double last_operand, last_top = -1e70, variables[26];
+        double last_operand, ans = 0.0, variables[26];
         int s_length;
         for (; (s_length = get_token(s)) > 0; ) {
                 if (is_number(s)) stack_push(atof(s));
@@ -60,23 +60,22 @@ int main() {
                         stack_push(pow(stack_pop(), last_operand));
                 } else if (strcmp(s, "sqrt") == 0) stack_push(sqrt(stack_pop()));
                 else if (strcmp(s, "view_stack") == 0) {
-                        printf("[");
+                        printf("[\n        ");
                         for (int i = 0; i < stack_length; i++) {
-                                if (i < stack_length - 1 && i % 10 == 0)
-                                        printf("\n        ");
                                 printf("%.3g, ", stack[i]);
+                                if ((i + 1) % 10 == 0) printf("\n        ");
                         }
                         printf("\n]\n");
                 } else if (strcmp(s, "\n") == 0) {
                         if (!stack_is_empty()) {
-                                printf("        %.8g\n", (last_top = stack_pop()));
+                                printf("        %.8g\n", (ans = stack_pop()));
                         }
                 } else if (s_length == 1 && isupper(s[0]))
                         stack_push(variables[s[0] - 'A']);
                 else if (s_length == 5 && strncmp(s, "set_", 4) == 0 && isupper(s[4])) {
                         if (stack_length > 0) variables[s[4] - 'A'] = stack_top();
                 }
-                else if (strcmp(s, "ans") == 0) stack_push(last_top);
+                else if (strcmp(s, "ans") == 0) stack_push(ans);
                 else printf("error: unkown command/function '%s'\n", s);
         }
         return 0;
