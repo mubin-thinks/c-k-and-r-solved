@@ -22,7 +22,7 @@ void stack_clear(void);
 
 int main() {
         char c, s[OP_MAX_LENGTH];
-        double last_operand, last_top = -1e70;
+        double last_operand, last_top = -1e70, variables[26];
         int s_length;
         for (; (s_length = get_token(s)) > 0; ) {
                 if (is_number(s)) stack_push(atof(s));
@@ -68,14 +68,16 @@ int main() {
                         }
                         printf("\n]\n");
                 } else if (strcmp(s, "\n") == 0) {
-                        if (
-                                !stack_is_empty() &&
-                                (last_operand = stack_pop()) != last_top
-                        ) {
-                                printf("        %.8g\n", last_operand);
-                                last_top = last_operand;
+                        if (!stack_is_empty()) {
+                                printf("        %.8g\n", (last_top = stack_pop()));
                         }
-                } else printf("error: unkown command/function '%s'\n", s);
+                } else if (s_length == 1 && isupper(s[0]))
+                        stack_push(variables[s[0] - 'A']);
+                else if (s_length == 5 && strncmp(s, "set_", 4) == 0 && isupper(s[4])) {
+                        if (stack_length > 0) variables[s[4] - 'A'] = stack_top();
+                }
+                else if (strcmp(s, "ans") == 0) stack_push(last_top);
+                else printf("error: unkown command/function '%s'\n", s);
         }
         return 0;
 }
