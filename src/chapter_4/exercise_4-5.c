@@ -15,7 +15,7 @@ void ungetch(char c);
 int get_token(char s[]);
 void stack_push(double x);
 double stack_pop(void);
-int stack_is_empty();
+int stack_is_empty(void);
 double stack_top(void);
 void stack_swap_top(void);
 void stack_clear(void);
@@ -57,7 +57,8 @@ int main() {
                 else if (strcmp(s, "view_stack") == 0) {
                         printf("[");
                         for (int i = 0; i < stack_length; i++) {
-                                if (i % 10 == 0) printf("\n        ");
+                                if (i < stack_length - 1 && i % 10 == 0)
+                                        printf("\n        ");
                                 printf("%.3g, ", stack[i]);
                         }
                         printf("\n]\n");
@@ -70,6 +71,7 @@ int main() {
                                 last_top = last_operand;
                         }
                 }
+                else printf("error: unkown command/function '%s'\n", s);
         }
         return 0;
 }
@@ -127,7 +129,7 @@ double stack_pop(void) {
         }
 }
 
-int stack_is_empty() {
+int stack_is_empty(void) {
         return (stack_length > 0) ? 0 : 1;
 }
 
