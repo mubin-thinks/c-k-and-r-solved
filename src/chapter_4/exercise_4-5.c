@@ -70,8 +70,7 @@ int main() {
                                 printf("        %.8g\n", last_operand);
                                 last_top = last_operand;
                         }
-                }
-                else printf("error: unkown command/function '%s'\n", s);
+                } else printf("error: unkown command/function '%s'\n", s);
         }
         return 0;
 }
