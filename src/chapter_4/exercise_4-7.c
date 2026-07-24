@@ -6,7 +6,7 @@
 char ungetch_buffer[UNGETCH_BUFFER_MAX_LENGTH];
 int ungetch_buffer_length = 0;
 
-char getch(void);
+int getch(void);
 void ungetch(char c);
 void ungets(const char s[]);
 
@@ -21,7 +21,7 @@ int main() {
         printf("%s\n", ungetch_buffer);
 }
 
-char getch(void) {
+int getch(void) {
         return (ungetch_buffer_length > 0) ?
                 ungetch_buffer[--ungetch_buffer_length] :
                 getchar();

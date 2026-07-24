@@ -10,7 +10,7 @@ double stack[STACK_MAX_LENGTH];
 int stack_length = 0;
 
 int is_number(char str[]);
-char getch(void);
+int getch(void);
 void ungetch(char c);
 int get_token(char s[]);
 void stack_push(double x);
@@ -91,7 +91,7 @@ int is_number(char str[]) {
 char ungetch_buffer[UNGETCH_BUFFER_MAX_LENGTH];
 int ungetch_buffer_length = 0;
 
-char getch(void) {
+int getch(void) {
         return (ungetch_buffer_length > 0) ?
                 ungetch_buffer[--ungetch_buffer_length] :
                 getchar();

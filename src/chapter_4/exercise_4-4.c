@@ -5,7 +5,7 @@
 #define OP_MAX_LENGTH 100
 #define NUMBER '0'
 
-char getch(void);
+int getch(void);
 void ungetch(char c);
 char getop(char s[]);
 void push(double x);
@@ -69,7 +69,7 @@ int main() {
 char ungetch_buffer[UNGETCH_BUFFER_MAX_LENGTH];
 int ungetch_buffer_length = 0;
 
-char getch(void) {
+int getch(void) {
         return (ungetch_buffer_length > 0) ?
                 ungetch_buffer[--ungetch_buffer_length] :
                 getchar();
