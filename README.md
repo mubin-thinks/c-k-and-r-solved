@@ -61,7 +61,7 @@ doas apk update && doas apk add gcc
 
 ### macOS
 Please view other resources to install GCC on a Mac. The reason it's not included as it is
-two descriptive and a video would greatly help.
+too descriptive and a video would greatly help.
 
 ## Project Structure
 The project is structured very simply and starts at `src/`:
