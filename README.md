@@ -1,4 +1,3 @@
-
 > [!WARNING]
 > This project is currently work-in-progress. (WIP)
 
@@ -8,18 +7,24 @@
     </h2>
     <p>
         <i>
-            Solutions to all exercises from the book "The C Programming Language 2nd
-            Edition by Brian W. Kernighan & Dennis M. Ritchie".
+            Solutions to all exercises from the book<br>"The C Programming Language 2nd
+            Edition<br>by Brian W. Kernighan & Dennis M. Ritchie".
         </i>
     </p>
+    **[Getting A Compiler] | [Running An Exercise] | [Project Structure] | [Contributing]**
 </div>
+
+[Getting A Compiler]: https://github.com/mubin-thinks/c-k-and-r-solved/tree/main#getting-a-compiler
+[Running An Exercise]: https://github.com/mubin-thinks/c-k-and-r-solved/tree/main#running-an-exercise
+[Project Structure]: https://github.com/mubin-thinks/c-k-and-r-solved/tree/main#project-structure
+[Contributing]: https://github.com/mubin-thinks/c-k-and-r-solved/tree/main#contributing
 
 ## Getting A Compiler
 #### Windows
 Windows users can choose MSVC C compiler or GCC through
 MinGW(Minimal GNU for Windows). The latter is preferred and easier to install. One of the
-ways to install MinGW is through [MSYS2↗](https://www.msys2.org/). Through it, you can
-get very up-to-date version of GCC.<br /><br />
+ways to install MinGW is through [MSYS2](https://www.msys2.org/). Through it, you can
+get very up-to-date version of GCC.
 
 Install MSYS2 from the link provided and open it. It will open a terminal where you will
 install MinGW with the following commands:
@@ -34,7 +39,7 @@ $ pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
 ```
 
 After the installation of MinGW is done, you have to add the path:
-`C:\msys64\ucrt64\bin` to your Environment Variables by,<br /><br />
+`C:\msys64\ucrt64\bin` to your Environment Variables by,
 
 
 Opening Search Bar > Typing "Environment Variables" and entering >
@@ -94,12 +99,10 @@ $ .\a.exe
 ## Contributing
 Currently the project is under development and not all the solutions are solved.
 Please, do not open a Pull Request solving any future problem that I have not solved.
-<br /><br />
 
 If you've found a mistake in my solutions, you are welcome to open a Issue or Pull
-Request! I will be glad to review it.<br /><br />
+Request! I will be glad to review it.
 
 Any help with documentation such as misspelling, unclear meaning etc. are also accepted.
-<br /><br />
 
 Thanks.
