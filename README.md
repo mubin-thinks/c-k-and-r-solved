@@ -47,16 +47,16 @@ pressing OK to all the boxes.
 Run the one of the commands depending on your version of linux:
 ```
 # ARCH LINUX
-sudo pacman -Sy base-devel
+sudo pacman -Sy gcc
 
 # DEBIAN LINUX
-sudo apt update && sudo apt install build-essential
+sudo apt update && sudo apt install gcc
 
 # VOID LINUX
-sudo xbps-install -S base-devel
+sudo xbps-install -S gcc
 
 # ALPINE LINUX
-doas apk add gcc
+doas apk update && doas apk add gcc
 ```
 
 ### macOS
