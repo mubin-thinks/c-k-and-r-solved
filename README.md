@@ -6,7 +6,7 @@
         <i>Solutions to Exercises of<br>The C Programming Language 2nd Edition by K&R</i>
     </h2>
 
-    **[Getting A Compiler] | [Running An Exercise] | [Project Structure] | [Contributing]**
+**[Getting A Compiler] | [Running An Exercise] | [Project Structure] | [Contributing]**
 </div>
 
 [Getting A Compiler]: https://github.com/mubin-thinks/c-k-and-r-solved/tree/main#getting-a-compiler
