@@ -8,18 +8,23 @@ int main() {
         char s[1000];
         itoa(s, 1234, get_digit_count(1234));
         printf("%s\n", s);
+        s[0] = '\0';
 
         itoa(s, 237949, get_digit_count(237949));
         printf("%s\n", s);
+        s[0] = '\0';
 
         itoa(s, -5763487, get_digit_count(-5763487));
         printf("%s\n", s);
+        s[0] = '\0';
 
-        itoa(s, -0, get_digit_count(-0));
+        itoa(s, 0, get_digit_count(0));
         printf("%s\n", s);
+        s[0] = '\0';
 
         itoa(s, 3409, get_digit_count(3409));
         printf("%s\n", s);
+        s[0] = '\0';
         return 0;
 }
 
