@@ -5,12 +5,7 @@
     <h2>
         <i>Solutions to Exercises of<br>The C Programming Language 2nd Edition by K&R</i>
     </h2>
-    <p>
-        <i>
-            Solutions to all exercises from the book<br>"The C Programming Language 2nd
-            Edition<br>by Brian W. Kernighan & Dennis M. Ritchie".
-        </i>
-    </p>
+
     **[Getting A Compiler] | [Running An Exercise] | [Project Structure] | [Contributing]**
 </div>
 
@@ -20,7 +15,7 @@
 [Contributing]: https://github.com/mubin-thinks/c-k-and-r-solved/tree/main#contributing
 
 ## Getting A Compiler
-#### Windows
+### Windows
 Windows users can choose MSVC C compiler or GCC through
 MinGW(Minimal GNU for Windows). The latter is preferred and easier to install. One of the
 ways to install MinGW is through [MSYS2](https://www.msys2.org/). Through it, you can
@@ -48,7 +43,7 @@ pressing "Edit..." > Adding the path mentioned here to the list >
 pressing OK to all the boxes.
 
 
-#### Linux
+### Linux
 Run the one of the commands depending on your version of linux:
 ```
 # ARCH LINUX
@@ -64,7 +59,7 @@ sudo xbps-install -S base-devel
 doas apk add gcc
 ```
 
-#### macOS
+### macOS
 Please view other resources to install GCC on a Mac. The reason it's not included as it is
 two descriptive and a video would greatly help.
 
