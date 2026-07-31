@@ -1,16 +1,19 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int getint(int* result);
+// The floatint-point analog of getint will also return
+// `int` as the return type as it indicates what characters
+// are read and not the number read.
+int getfloat(float* result);
 int getch(void);
 void ungetch(int c);
 
 int main() {
-        for (int result; getint(&result) > 0;) printf("%d\n", result);
+        for (float result; getfloat(&result) > 0;) printf("%f\n", result);
         return 0;
 }
 
-int getint(int* result) {
+int getfloat(float* result) {
         int c, sign;
         for (; isspace(c = getch()); );
         if (!isdigit(c) && c != '+' && c != '-' && c != EOF) {
@@ -28,8 +31,16 @@ int getint(int* result) {
                 ungetch(c);
                 return 0;
         }
-        for (*result = 0; isdigit(c); c = getch()) *result = 10 * *result + (c - '0');
+        for (*result = 0.0; isdigit(c); c = getch())
+                *result = 10.0 * *result + (float)(c - '0');
         *result *= sign;
+        if (c == '.') c = getch();
+        float power = 1.0;
+        for (; isdigit(c); c = getch()) {
+                *result = 10.0 * *result + (float)(c - '0');
+                power *= 10.0;
+        }
+        *result /= power;
         if (c != EOF) ungetch(c);
         return c;
 }
