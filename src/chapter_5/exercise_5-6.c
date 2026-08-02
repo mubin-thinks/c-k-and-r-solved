@@ -14,6 +14,7 @@ double atof(char *s);
 char *itoa(char *s, int x);
 char *itob(char *s, int x, int b);
 void swap(int *x, int *y);
+int strindex(char *s, char *t);
 int getop(char *s);
 void stack_push(int x);
 int stack_pop();
@@ -35,6 +36,13 @@ int main() {
         printf("int x = %d, y = %d\n", x, y);
         swap(&x, &y);
         printf("swap(&x, &y): x = %d, y = %d\n", x, y);
+        printf("strindex(\"hello\", \"lo\"): %d\n", strindex("hello", "lo"));
+        printf(
+                "strindex(\"something\", \"something\"): %d\n",
+                strindex("something", "something")
+        );
+        printf("strindex(\"testing\", \"tan\"): %d\n", strindex("testing", "tan"));
+        printf("strindex(\"another-test\", \"\"): %d\n", strindex("another-test", ""));
         printf("math expresssion > ");
         for (int option; (option = getop(s)) != '\n'; ) {
                 switch (option) {
@@ -174,6 +182,15 @@ void swap(int *x, int *y) {
         tmp = *x;
         *x = *y;
         *y = tmp;
+}
+
+int strindex(char *s, char *t) {
+        char *begin = s;
+        for (char *p = s, *q = t; *s != '\0'; s++, p = s, q = t) {
+                for (; *q != '\0' && *p == *q; p++, q++);
+                if (q > t && *q == '\0') return s - begin;
+        }
+        return -1;
 }
 
 #define UNGETCH_BUFFER_CAPACITY 100
