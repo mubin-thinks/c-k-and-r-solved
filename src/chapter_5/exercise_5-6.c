@@ -1,15 +1,18 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <limits.h>
+
+#define NUMBER '0'
 
 int my_getline(char *s, int max_length);
-void reverse(char *s);
-void copy(char *s, char *t);
-void squeeze(char *s, char *t);
+char *reverse(char *s);
+char *copy(char *s, char *t);
+char *squeeze(char *s, char *t);
 int htoi(char *s);
 int atoi(char *s);
 double atof(char *s);
-void itoa(char *s, int x);
-void itob(char *s, int x, int b);
+char *itoa(char *s, int x);
+char *itob(char *s, int x, int b);
 void swap(int *x, int *y);
 int getop(char *s);
 void stack_push(int x);
@@ -17,41 +20,88 @@ int stack_pop();
 int stack_top();
 
 int main() {
+        char s[1000];
+        printf("line_length: %d, line: %s\n", my_getline(s, 1000), s);
+        printf("reversed: %s\n", reverse(s));
+        char t[1000];
+        printf("t: %s\n", copy(t, s));
+        printf("squeeze(s, \"abcd\"): %s\n", squeeze(s, "abcd"));
+        printf("htoi(\"0xff\"): %d\n", htoi("0xff"));
+        printf("atoi(\"-00004237934\"): %d\n", atoi("-00004237934"));
+        printf("atof(\"-0.00004f\"): %f\n", atoi("0.00004f"));
+        printf("itoa(s, 123456789): %s\n", itoa(s, 123456789));
+        printf("itob(s, INT_MAX, 36): %s\n", itob(s, INT_MAX, 36));
+        int x = 40, y = -32740234;
+        printf("int x = %d, y = %d\n", x, y);
+        swap(&x, &y);
+        printf("swap(&x, &y): x = %d, y = %d\n", x, y);
+        printf("math expresssion > ");
+        for (int option; (option = getop(s)) != '\n'; ) {
+                switch (option) {
+                        case NUMBER:
+                                printf("NUMBER %s\n", s);
+                                break;
+                        default:
+                                printf("OP %c\n", option);
+                                break;
+                }
+        }
+
+        stack_push(20);
+        stack_push(324);
+        stack_push(3274);
+        stack_push(2);
+        stack_push(16);
+        printf("stack_pop(): %d\n", stack_pop());
+        printf("stack_pop(): %d\n", stack_pop());
+        printf("stack_pop(): %d\n", stack_pop());
+        printf("stack_top(): %d\n", stack_top());
+        printf("stack_top(): %d\n", stack_top());
+        printf("stack_top(): %d\n", stack_top());
+        printf("stack_pop(): %d\n", stack_pop());
+        printf("stack_pop(): %d\n", stack_pop());
+        printf("stack_pop(): %d\n", stack_pop());
+        printf("stack_top(): %d\n", stack_top());
         return 0;
 }
 
 int my_getline(char *s, int max_length) {
         int c;
-        char *end = s + max_length;
-        for (; (c = getline()) != EOF && c != '\n' && (max_length--) > 2 && *s++ = c; );
-        if (c == '\n') *s++ = c;
-        *s = '\0';
-        return end - s;
+        char *p = s;
+        for (; (c = getchar()) != EOF && c != '\n' && (max_length--) > 2 && (*p++ = c); );
+        if (c == '\n') *p++ = c;
+        *p = '\0';
+        return p - s;
 }
 
-void reverse(char *s) {
+char *reverse(char *s) {
         char *l = s, *r = s, tmp;
         for (; *r != '\0'; r++);
         r--;
-        for (; l < r; ) {
+        for (; l < r; l++, r--) {
                 tmp = *l;
                 *l = *r;
                 *r = tmp;
         }
+        return s;
 }
 
-void copy(char *s, char *t) {
-        for (; *s++ = *t++; );
+char *copy(char *s, char *t) {
+        char *p = s;
+        for (; *p++ = *t++; );
+        return s;
 }
 
-void char_in_string(char *s, char c) {
+int char_in_string(char *s, char c) {
         for (; *s; s++) if (*s == c) return 1;
         return 0;
 }
 
-void squeeze(char *s, char *t) {
-        for (char *p = s; *p; p++) if (!char_in_string(t, *p)) *s++ = *p;
+char *squeeze(char *s, char *t) {
+        char *p = s, *result = s;
+        for (; *p; p++) if (!char_in_string(t, *p)) *s++ = *p;
         *s = '\0';
+        return result;
 }
 
 int int_from_hex_char(char c) {
@@ -61,7 +111,7 @@ int int_from_hex_char(char c) {
         return c;
 }
 
-int hex_char() {
+int hex_char(char c) {
         if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))
                 return 1;
         return 0;
@@ -98,7 +148,7 @@ double atof(char *s) {
         return (result * sign) / power;
 }
 
-void itoa(char *s, int x) {
+char *itoa(char *s, int x) {
         char *p = s;
         int sign = (x < 0) ? -1 : 1, add_one = (x == INT_MIN) ? 1 : 0;
         if (x == INT_MIN) x++;
@@ -110,7 +160,7 @@ void itoa(char *s, int x) {
         reverse(s);
 }
 
-void itob(char *s, int x, int b) {
+char *itob(char *s, int x, int b) {
         char *p = s, *base = "0123456789abcdefghijklmnopqrstuvwxyz",
                 sign = (x < 0) ? -1 : 1;
         do *p++ = base[x % b]; while ((x /= b) > 0);
@@ -129,7 +179,7 @@ void swap(int *x, int *y) {
 #define UNGETCH_BUFFER_CAPACITY 100
 
 char ungetch_buffer[UNGETCH_BUFFER_CAPACITY];
-char ungetch_buffer_p = ungetch_buffer;
+char *ungetch_buffer_p = ungetch_buffer;
 
 int getch(void) {
         return (ungetch_buffer_p > ungetch_buffer) ? *--ungetch_buffer_p : getchar();
@@ -141,21 +191,23 @@ void ungetch(char c) {
         else printf("error: ungetch buffer limit reached.\n");
 }
 
-#define NUMBER '0'
-
 int getop(char *s) {
         int c;
         for (; (c = getch()) == ' ' || c == '\t'; );
         if (!isdigit(c) && c != '.') return c;
         for (; isdigit(c); c = getch()) *s++ = c;
-        if (c == '.') *s++ = c;
-        c = getch();
-        for (; isdigit(c); c = getch()) *s++ = c;
+        if (c == '.') {
+                *s++ = c;
+                c = getch();
+                for (; isdigit(c); c = getch()) *s++ = c;
+        }
+        *s = '\0';
         if (c != EOF) ungetch(c);
         return NUMBER;
 }
 
 #define STACK_CAPACITY 1000
+
 int stack[STACK_CAPACITY];
 int *stack_p = stack;
 
