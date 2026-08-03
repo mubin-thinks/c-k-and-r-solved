@@ -8,6 +8,7 @@ int main() {
         printf("%d\n", day_of_year(2024, 7, 29));
         printf("%d\n", day_of_year(1998, 12, 31));
         printf("%d\n", day_of_year(2020, 1, 1));
+        printf("%d\n", day_of_year(0, 1, 1));
 
         int month, day;
         month_day(2026, 87, &month, &day);
@@ -20,6 +21,9 @@ int main() {
         printf("%4d/%2d/%2d\n", 1998, month, day);
 
         month_day(2020, 1, &month, &day);
+        printf("%4d/%2d/%2d\n", 2020, month, day);
+
+        month_day(2020, 367, &month, &day);
         printf("%4d/%2d/%2d\n", 2020, month, day);
         return 0;
 }
@@ -43,7 +47,8 @@ int day_of_year(int year, int month, int day) {
 void month_day(int year, int day, int *output_month, int *output_day) {
         int leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
         if ((day < 1 || (leap && day > 366) || (!leap && day > 365)) || year <= 0) {
-                printf("error: invalid input day.\n");
+                *output_month = -1;
+                *output_day = -1;
                 return;
         }
         int i = 1;
