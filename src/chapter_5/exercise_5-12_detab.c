@@ -5,8 +5,8 @@
 int main(int argc, char *argv[]) {
         int n = 4, m = 0;
         for (; --argc && ++argv; ) {
-                if (strncmp(*argv, "-", 1) == 0) m = atoi((*argv) + 1);
-                else if (strncmp(*argv, "+", 1) == 0) n = atoi((*argv) + 1);
+                if (**argv = '-') m = atoi(*argv + 1);
+                else if (**argv = '+') n = atoi(*argv + 1);
                 else {
                         printf("error: invalid command `%s`.\n", *argv);
                         return 1;
