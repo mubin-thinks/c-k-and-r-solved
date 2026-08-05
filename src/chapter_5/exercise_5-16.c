@@ -19,13 +19,15 @@ void quick_sort(
 );
 int strcmp_optionally_folded(const char *a, const char *b, int fold);
 int numcmp(const char *a, const char *b, int fold);
+int strcmp_dir(const char *a, const char *b, int fold);
 
 int main(int argc, char **argv) {
-        int n = 0, r = 0, f = 0;
+        int n = 0, r = 0, f = 0, d = 0;
         for (; --argc && **++argv == '-'; ) for (char c; c = *++(*argv); ) {
                 if (c == 'n') n = 1;
                 else if (c == 'r') r = 1;
                 else if (c == 'f') f = 1;
+                else if (c == 'd') d = 1;
                 else {
                         printf("error: unknown option %c\n", c);
                         return 1;
@@ -46,7 +48,7 @@ int main(int argc, char **argv) {
                         0,
                         lines_ptr_length - 1,
                         (int (*)(void*, void*, int))((n) ? numcmp :
-                                strcmp_optionally_folded),
+                                ((d) ? strcmp_dir : strcmp_optionally_folded)),
                         r,
                         f
                 );
@@ -123,4 +125,26 @@ int numcmp(const char *a, const char *b, int fold) {
         if (c > d) return 1;
         if (c < d) return -1;
         return 0;
+}
+
+int dir_char(char c) {
+        if (
+                (c >= 'a' && c <= 'z') ||
+                (c >= 'A' && c <= 'Z') ||
+                (c >= '0' && c <= '9') ||
+                c == ' '
+        ) return 1;
+        return 0;
+}
+
+int strcmp_dir(const char *a, const char *b, int fold) {
+        for (
+                ;
+                *a &&
+                *b &&
+                ((!dir_char(*a) || !dir_char(*b)) ||
+                ((fold) ? tolower(*a) == tolower(*b) : *a == *b));
+                a++, b++
+        );
+        return (fold) ? tolower(*a) - tolower(*b) : *a - *b;
 }
