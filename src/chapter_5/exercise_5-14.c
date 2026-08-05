@@ -58,10 +58,6 @@ int get_line(char *s, int max_length) {
         return p - s;
 }
 
-// Passing buffer from main does increase performance due
-// to not having to strcpy(...) to save the string to hidden
-// alloc buffer. We can write directly to the buffer passed
-// by main instead.
 int readlines(char *output[], int output_length, char *buffer, int buffer_length) {
         char *p = buffer;
         int line_length, total_lines = 0;
