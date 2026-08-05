@@ -14,14 +14,12 @@ int numcmp(const char *a, const char *b);
 
 int main(int argc, char **argv) {
         int n = 0, r = 0;
-        for (; --argc && **++argv == '-'; ) {
-                for (char c; c = *++(*argv); ) {
-                        if (c == 'n') n = 1;
-                        else if (c == 'r') r = 1;
-                        else {
-                                printf("error: unknown option %c\n", c);
-                                return 1;
-                        }
+        for (; --argc && **++argv == '-'; ) for (char c; c = *++(*argv); ) {
+                if (c == 'n') n = 1;
+                else if (c == 'r') r = 1;
+                else {
+                        printf("error: unknown option %c\n", c);
+                        return 1;
                 }
         }
         char *lines_ptr[OUTPUT_CAPACITY], alloc_buffer[ALLOC_CAPACITY];
