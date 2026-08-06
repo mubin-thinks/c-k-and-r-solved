@@ -1,3 +1,6 @@
+// Compile command to generate executable `tail`:
+//        gcc -o tail exercise_5-10.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
