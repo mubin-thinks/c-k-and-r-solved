@@ -8,6 +8,7 @@
 
 struct num_node_t {
         int num;
+        int count;
         struct num_node_t *l, *r;
 };
 
@@ -19,7 +20,12 @@ struct word_node_t {
 
 void skip_spaces(void);
 int read_word(char *s, int s_len);
-int binary_search(const char **strings, int strings_len, const char *s);
+int binary_search(
+        const char **strings,
+        int strings_len,
+        const char *s,
+        int (*compare_fn)(const char *a, const char *b)
+);
 void get_frequencies(
         struct word_node_t **output,
         const char **noise_words,
@@ -101,15 +107,25 @@ int read_word(char *s, int s_len) {
         return s[0];
 }
 
-int binary_search(const char **strings, int strings_len, const char *s) {
+int binary_search(
+        const char **strings,
+        int strings_len,
+        const char *s,
+        int (*compare_fn)(const char *a, const char *b)
+) {
         int l = 0, r = strings_len - 1, m, compare;
         for (; l <= r; ) {
                 m = l + (r - l) / 2;
-                if ((compare = strcmp(s, strings[m])) > 0) l = m + 1;
+                if ((compare = compare_fn(s, strings[m])) > 0) l = m + 1;
                 else if (compare < 0) r = m - 1;
                 else return m;
         }
         return -1;
+}
+
+int string_insensitive_compare(const char *a, const char *b) {
+        for (; *a && *b && tolower(*a) == tolower(*b); a++, b++);
+        return tolower(*a) - tolower(*b);
 }
 
 void get_frequencies(
@@ -122,7 +138,14 @@ void get_frequencies(
         for (int line_number = 1; (read_word(s, s_len)) != EOF; ) {
                 if (s[0] == '\n') line_number++;
                 if (!isalpha(s[0])) continue;
-                if (binary_search(noise_words, noise_words_len, s) >= 0) continue;
+                if (
+                        binary_search(
+                                noise_words,
+                                noise_words_len,
+                                s,
+                                string_insensitive_compare
+                        ) >= 0
+                ) continue;
                 *output = word_node_insert(*output, s, line_number);
         }
 }
@@ -131,16 +154,18 @@ struct num_node_t *num_node_insert(struct num_node_t *node, int num) {
         if (node == NULL) {
                 node = (struct num_node_t *)malloc(sizeof(struct num_node_t));
                 node->num = num;
+                node->count = 1;
                 node->l = node->r = NULL;
         } else if (num > node->num) node->r = num_node_insert(node->r, num);
         else if (num < node->num) node->l = num_node_insert(node->l, num);
+        else node->count++;
         return node;
 }
 
 void num_node_print(struct num_node_t *node) {
         if (node == NULL) return;
         num_node_print(node->l);
-        printf("%d ", node->num);
+        for (int i = 0; i < node->count; i++) printf("%d ", node->num);
         num_node_print(node->r);
 }
 
